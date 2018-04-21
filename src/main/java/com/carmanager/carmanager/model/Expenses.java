@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -20,6 +21,9 @@ public class Expenses {
     private Car car;
 
     private String name;
+    private LocalDate expenseDate;
+    private String expenseCost;
+    private String expenseDescription;
 
     public Expenses(String name) {
         this.name = name;
