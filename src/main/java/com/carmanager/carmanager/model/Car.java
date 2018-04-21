@@ -28,8 +28,9 @@ public class Car {
 
     @OneToMany (mappedBy = "repair")
     private List<Repairs> repairsList;
-    @ManyToOne
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "appuser")
+
+
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private AppUser appUser;
 
 

@@ -15,8 +15,11 @@ public class Expenses {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    private List<ExpensesEnum> expensesList;
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Car car;
+
+    private String name;
+
 
 
 }

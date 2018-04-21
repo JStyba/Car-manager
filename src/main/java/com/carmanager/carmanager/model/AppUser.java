@@ -24,4 +24,6 @@ public class AppUser {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Car> carList;
 
+
+
 }
