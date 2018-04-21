@@ -16,8 +16,11 @@ public class Repairs {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+    private String workshop;
+    private double cost;
+    private String description;
+    
     @ManyToOne
     private Car car;
-
-
 }
