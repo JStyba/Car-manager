@@ -32,6 +32,9 @@ public class Car {
     private AppUser appUser;
 
 
+    private Expenses expenses;
+
+
 
 
 
