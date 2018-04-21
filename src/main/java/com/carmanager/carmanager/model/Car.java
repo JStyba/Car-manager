@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Car {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -33,6 +34,7 @@ public class Car {
 
 
     private Expenses expenses;
+
 
 
 
