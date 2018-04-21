@@ -5,6 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface AppUserRepository extends JpaRepository<AppUser, Long> {
-    Optional<AppUser> findByLogin(String login);
+public interface FeesRepository extends JpaRepository<AppUser, Long> {
+
 }
