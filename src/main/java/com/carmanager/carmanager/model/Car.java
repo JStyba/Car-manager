@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,19 +27,21 @@ public class Car {
     private String registrationNumber;
 
 
-    @OneToMany (mappedBy = "repair")
+    @OneToMany
     private List<Repairs> repairsList;
 
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     private AppUser appUser;
 
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car")
+    private Set<Expenses> expensesSet;
 
-    private Expenses expenses;
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car")
+    private Set<Fees> feesSet;
 
-
-
-
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car")
+    private Set<Repairs> repairsSet;
 
 
 }
