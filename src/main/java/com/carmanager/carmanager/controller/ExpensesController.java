@@ -24,7 +24,7 @@ public class ExpensesController {
     @RequestMapping(path = "/listexpenses", method = RequestMethod.GET)
     public List<Expenses> listExpenses() {
         List<Expenses> expensesList = expenseService.getAll().stream()
-                .map(expenses -> new Expenses(expenses.getName()))
+                .map(expenses -> new Expenses(expenses.getName(), expenses.getExpenseDate(),expenses.getExpenseCost(),expenses.getExpenseDescription()))
                 .collect(Collectors.toList());
         return expensesList;
     }

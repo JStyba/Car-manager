@@ -25,8 +25,19 @@ public class Expenses {
     private LocalDate expenseDate;
     private String expenseCost;
     private String expenseDescription;
+    @Enumerated (EnumType.STRING)
+    private ExpensesEnum expensesEnum;
 
     public Expenses(String name) {
         this.name = name;
+    }
+
+    public Expenses(String name, LocalDate expenseDate, String expenseCost, String expenseDescription) {
+
+        this.name = name;
+        this.expenseDate = expenseDate;
+        this.expenseCost = expenseCost;
+        this.expenseDescription = expenseDescription;
+
     }
 }

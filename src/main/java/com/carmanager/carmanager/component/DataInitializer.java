@@ -1,6 +1,7 @@
 package com.carmanager.carmanager.component;
 
 
+import com.carmanager.carmanager.model.Car;
 import com.carmanager.carmanager.model.Expenses;
 import com.carmanager.carmanager.model.Fees;
 import com.carmanager.carmanager.repository.ExpensesRepository;
@@ -8,6 +9,8 @@ import com.carmanager.carmanager.repository.FeesRepository;
 import com.carmanager.carmanager.repository.RepairsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @Component
 public class DataInitializer {
@@ -32,12 +35,8 @@ public class DataInitializer {
 //    }
 
     private void loadExpenses() {
-        expensesRepository.save(new Expenses("Vulcanization"));
-        expensesRepository.save(new Expenses("Cosmetics"));
-        expensesRepository.save(new Expenses("Filling"));
-        expensesRepository.save(new Expenses("Diagnosis"));
-        expensesRepository.save(new Expenses("Vehicle Technical Inspection"));
-        expensesRepository.save(new Expenses("Liquids"));
+        expensesRepository.save(new Expenses("Vulcanization", LocalDate.now(),"200","usługa"));
+
     }
 
     private void loadFees() {
