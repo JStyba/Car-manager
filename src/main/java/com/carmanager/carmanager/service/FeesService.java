@@ -3,9 +3,11 @@ package com.carmanager.carmanager.service;
 import com.carmanager.carmanager.model.Fees;
 import com.carmanager.carmanager.repository.FeesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class FeesService implements IFeesService {
 
     @Autowired
