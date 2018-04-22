@@ -1,12 +1,8 @@
 package com.carmanager.carmanager.component;
 
 
-import com.carmanager.carmanager.model.Car;
-import com.carmanager.carmanager.model.Expenses;
-import com.carmanager.carmanager.model.Fees;
-import com.carmanager.carmanager.repository.ExpensesRepository;
-import com.carmanager.carmanager.repository.FeesRepository;
-import com.carmanager.carmanager.repository.RepairsRepository;
+import com.carmanager.carmanager.model.*;
+import com.carmanager.carmanager.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,12 +14,15 @@ public class DataInitializer {
     private ExpensesRepository expensesRepository;
     private FeesRepository feesRepository;
     private RepairsRepository repairsRepository;
-
+    private RoleRepository roleRepository;
+    private AppUserRepository appUserRepository;
     @Autowired
-    public DataInitializer(ExpensesRepository expensesRepository, FeesRepository feesRepository, RepairsRepository repairsRepository) {
+    public DataInitializer(ExpensesRepository expensesRepository, FeesRepository feesRepository, RepairsRepository repairsRepository, RoleRepository roleRepository, AppUserRepository appUserRepository) {
         this.expensesRepository = expensesRepository;
         this.feesRepository = feesRepository;
         this.repairsRepository = repairsRepository;
+        this.roleRepository = roleRepository;
+        this.appUserRepository = appUserRepository;
 
         loadFees();
         loadExpenses();
@@ -34,6 +33,15 @@ public class DataInitializer {
 //
 //    }
 
+    private void loadData() {
+        Role adminRole = new Role("ADMIN");
+        adminRole = roleRepository.saveAndFlush(adminRole);
+        roleRepository.save(new Role("USER"));
+        roleRepository.save(new Role("GUEST"));
+
+        appUserRepository.save(new AppUser("admin", "admin", adminRole));
+    }
+
     private void loadExpenses() {
         expensesRepository.save(new Expenses("Vulcanization", LocalDate.now(),"200","usługa"));
 
@@ -43,4 +51,6 @@ public class DataInitializer {
             feesRepository.save(new Fees("Insurance OC"));
             feesRepository.save(new Fees("Insurance AC"));
     }
+    
 }
+
