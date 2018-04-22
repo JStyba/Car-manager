@@ -51,6 +51,6 @@ public class DataInitializer {
             feesRepository.save(new Fees("Insurance OC"));
             feesRepository.save(new Fees("Insurance AC"));
     }
-    
+
 }
 

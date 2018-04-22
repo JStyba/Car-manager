@@ -22,6 +22,7 @@ public class AppUser {
 
     private String login;
     private String email;
+
     private String password;
 
     public AppUser(String login, String password, Role role) {
