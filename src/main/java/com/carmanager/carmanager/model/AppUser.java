@@ -5,24 +5,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
-@Entity
-@Data
+@AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Entity
 public class AppUser {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @Column(unique = true)
     private String login;
+    private String email;
     private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Car> carList;
+    public AppUser(String login, String password, Role role) {
+        this.login = login;
+        this.password = password;
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        this.roleSet = roles;
+    }
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    private Set<Role> roleSet;
 
 }
