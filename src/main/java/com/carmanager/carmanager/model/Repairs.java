@@ -24,7 +24,7 @@ public class Repairs {
     private double cost;
     private LocalDate repairDate;
     private String description;
-    
+
     @ManyToOne
     private Car car;
 }

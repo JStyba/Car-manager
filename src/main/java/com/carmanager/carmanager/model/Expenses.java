@@ -12,6 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+
 public class Expenses {
 
     @Id
