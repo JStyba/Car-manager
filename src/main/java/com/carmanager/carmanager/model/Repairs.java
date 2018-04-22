@@ -20,7 +20,7 @@ public class Repairs {
     private String workshop;
     private double cost;
     private String description;
-    
+
     @ManyToOne
     private Car car;
 }
