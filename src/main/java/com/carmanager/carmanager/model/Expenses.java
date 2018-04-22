@@ -31,4 +31,13 @@ public class Expenses {
     public Expenses(String name) {
         this.name = name;
     }
+
+    public Expenses(String name, LocalDate expenseDate, String expenseCost, String expenseDescription) {
+
+        this.name = name;
+        this.expenseDate = expenseDate;
+        this.expenseCost = expenseCost;
+        this.expenseDescription = expenseDescription;
+
+    }
 }
