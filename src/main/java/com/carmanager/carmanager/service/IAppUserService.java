@@ -14,4 +14,5 @@ public interface IAppUserService {
         PageResponse<AppUser> getAllUsers();
 
         Optional<AppUser> getUserWithId(long ownerId);
+
 }
