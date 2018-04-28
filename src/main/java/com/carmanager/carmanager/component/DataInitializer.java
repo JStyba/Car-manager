@@ -43,7 +43,8 @@ public class DataInitializer {
     }
 
     private void loadExpenses() {
-        expensesRepository.save(new Expenses("Vulcanization", LocalDate.now(),"200","usługa"));
+        expensesRepository.save(new Expenses(1l,"Vulcanization", LocalDate.now(),"200","usługa"));
+        expensesRepository.save(new Expenses(2l,"Repair", LocalDate.now(),"100","deletethis"));
 
     }
 

@@ -30,13 +30,17 @@ public class ExpensesController {
     @RequestMapping(path = "/listexpenses", method = RequestMethod.GET)
     public List<Expenses> listExpenses() {
         List<Expenses> expensesList = expenseService.getAll().stream()
-                .map(expenses -> new Expenses(expenses.getName(), expenses.getExpenseDate(),expenses.getExpenseCost(),expenses.getExpenseDescription()))
+                .map(expenses -> new Expenses(expenses.getId(),
+                        expenses.getName()
+                        ,expenses.getExpenseDate()
+                        ,expenses.getExpenseCost()
+                        ,expenses.getExpenseDescription()))
                 .collect(Collectors.toList());
         return expensesList;
     }
 
-    @RequestMapping(path = "/remove-expense", method = RequestMethod.POST)
-    public ResponseEntity<Response> removeExpense(@RequestParam("expenseid") Long id) {
+    @RequestMapping(path = "/remove-expense/{expenseId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Response> removeExpense(@PathVariable ("expenseId") Long id) {
         try {
             expenseService.removeExpense(id);
         }catch (ElementNotFound e){
