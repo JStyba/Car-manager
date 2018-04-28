@@ -41,17 +41,9 @@ public class ExpensesController {
         return expensesList;
     }
 
-    @RequestMapping(path = "/remove-expense/{expenseId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> removeExpense(@PathVariable("expenseId") Long id) {
-        try {
-            expenseService.removeExpense(id);
-        } catch (ElementNotFound e) {
-            return RespFactory.badRequest();
-        }
-        return RespFactory.ok("expense deleted");
-    }
 
-    @RequestMapping(path = "/edit-expense/edit", method = RequestMethod.POST)
+
+    @RequestMapping(path = "/edit-expense/", method = RequestMethod.POST)
     public ResponseEntity<Response> editExpense(@RequestBody Expenses expense) throws ElementNotFound {
 
         expense.setName(expense.getName());
@@ -64,6 +56,15 @@ public class ExpensesController {
         }
         expensesRepository.saveAndFlush(expense);
         return RespFactory.ok("Expense edited");
+    }
+    @RequestMapping(path = "/remove-expense/{expenseId}", method = RequestMethod.DELETE)
+    public ResponseEntity<Response> removeExpense(@PathVariable("expenseId") Long id) {
+        try {
+            expenseService.removeExpense(id);
+        } catch (ElementNotFound e) {
+            return RespFactory.badRequest();
+        }
+        return RespFactory.ok("expense deleted");
     }
 
     @RequestMapping(path = "/add-expense", method = RequestMethod.POST)
