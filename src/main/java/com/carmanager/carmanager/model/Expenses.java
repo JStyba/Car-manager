@@ -32,12 +32,11 @@ public class Expenses {
         this.name = name;
     }
 
-    public Expenses(String name, LocalDate expenseDate, String expenseCost, String expenseDescription) {
-
+    public Expenses(Long id, String name, LocalDate expenseDate, String expenseCost, String expenseDescription) {
+        this.id = id;
         this.name = name;
         this.expenseDate = expenseDate;
         this.expenseCost = expenseCost;
         this.expenseDescription = expenseDescription;
-
     }
 }
