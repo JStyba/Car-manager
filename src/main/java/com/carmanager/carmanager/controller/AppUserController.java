@@ -1,6 +1,5 @@
 package com.carmanager.carmanager.controller;
 
-
 import com.carmanager.carmanager.exceptions.RegistrationException;
 import com.carmanager.carmanager.model.AppUser;
 import com.carmanager.carmanager.model.dto.PageResponse;
@@ -9,13 +8,10 @@ import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.service.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/user/")
 public class AppUserController {
 
@@ -40,6 +36,13 @@ public class AppUserController {
     @RequestMapping(path = "/list", method = RequestMethod.GET)
     public ResponseEntity<Response> list() {
         PageResponse<AppUser> list = appUserService.getAllUsers();
+
+        return RespFactory.result(list);
+    }
+
+    @RequestMapping(path = "/page", method = RequestMethod.GET)
+    public ResponseEntity<Response> page(@RequestParam(name = "page") int page) {
+        PageResponse<AppUser> list = appUserService.getUsers(page);
 
         return RespFactory.result(list);
     }

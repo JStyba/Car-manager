@@ -26,20 +26,15 @@ public class DataInitializer {
 
         loadFees();
         loadExpenses();
+        loadUsers();
 //        loadRepairs();
     }
-
-//    private void loadRepairs() {
-//
-//    }
-
     private void loadData() {
         Role adminRole = new Role("ADMIN");
         adminRole = roleRepository.saveAndFlush(adminRole);
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("GUEST"));
 
-        appUserRepository.save(new AppUser("admin", "admin", adminRole));
     }
 
     private void loadExpenses() {
@@ -47,11 +42,16 @@ public class DataInitializer {
         expensesRepository.save(new Expenses(2l,"Repair", LocalDate.now(),"100","deletethis"));
 
     }
-
+    // String name, LocalDate feeDate, String feeCost, LocalDate feeExpirationDate, String feeDescription
     private void loadFees() {
-            feesRepository.save(new Fees("Insurance OC"));
-            feesRepository.save(new Fees("Insurance AC"));
+            feesRepository.save(new Fees(1l,"Insurance AC", LocalDate.now(), "100", LocalDate.now().plusYears(1), "next fee"));
+            feesRepository.save(new Fees(2l,"Insurance OC", LocalDate.now(), "200", LocalDate.now().plusYears(1), "next fee"));
+    }
+
+    private void loadUsers () {
+        appUserRepository.save(new AppUser("admin@admin","admin","haslo"));
     }
 
 }
+
 

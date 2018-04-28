@@ -29,4 +29,13 @@ public class Fees {
     public Fees(String name) {
         this.name = name;
     }
+
+    public Fees(Long id, String name, LocalDate feeDate, String feeCost, LocalDate feeExpirationDate, String feeDescription) {
+        this.id = id;
+        this.name = name;
+        this.feeDate = feeDate;
+        this.feeCost = feeCost;
+        this.feeExpirationDate = feeExpirationDate;
+        this.feeDescription = feeDescription;
+    }
 }

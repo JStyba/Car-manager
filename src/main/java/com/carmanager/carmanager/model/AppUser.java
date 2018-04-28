@@ -1,5 +1,7 @@
 package com.carmanager.carmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
 
 
 @AllArgsConstructor
@@ -21,17 +24,15 @@ public class AppUser {
 
     private String login;
     private String email;
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
-    public AppUser(String login, String password, Role role) {
+    public AppUser(String email, String login, String password ) {
         this.login = login;
         this.password = password;
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        this.roleSet = roles;
+        this.email = email;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roleSet;
+
 
 }
