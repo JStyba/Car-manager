@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 
@@ -22,7 +21,6 @@ public class AppUser {
 
     private String login;
     private String email;
-
     private String password;
 
     public AppUser(String login, String password, Role role) {
