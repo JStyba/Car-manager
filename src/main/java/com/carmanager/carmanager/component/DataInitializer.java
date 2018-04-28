@@ -26,6 +26,7 @@ public class DataInitializer {
 
         loadFees();
         loadExpenses();
+        loadUsers();
 //        loadRepairs();
     }
 
@@ -39,7 +40,7 @@ public class DataInitializer {
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("GUEST"));
 
-        appUserRepository.save(new AppUser("admin", "admin", adminRole));
+
     }
 
     private void loadExpenses() {
@@ -51,6 +52,9 @@ public class DataInitializer {
     private void loadFees() {
             feesRepository.save(new Fees("Insurance OC"));
             feesRepository.save(new Fees("Insurance AC"));
+    }
+    private void loadUsers () {
+        appUserRepository.save(new AppUser("admin@admin","admin","haslo"));
     }
 
 }
