@@ -16,8 +16,10 @@ public class DataInitializer {
     private RepairsRepository repairsRepository;
     private RoleRepository roleRepository;
     private AppUserRepository appUserRepository;
+    private CarRepository carRepository;
     @Autowired
-    public DataInitializer(ExpensesRepository expensesRepository, FeesRepository feesRepository, RepairsRepository repairsRepository, RoleRepository roleRepository, AppUserRepository appUserRepository) {
+    public DataInitializer(CarRepository carRepository,  ExpensesRepository expensesRepository, FeesRepository feesRepository, RepairsRepository repairsRepository, RoleRepository roleRepository, AppUserRepository appUserRepository) {
+        this.carRepository = carRepository;
         this.expensesRepository = expensesRepository;
         this.feesRepository = feesRepository;
         this.repairsRepository = repairsRepository;
@@ -27,6 +29,7 @@ public class DataInitializer {
         loadFees();
         loadExpenses();
         loadUsers();
+        loadCars();
 //        loadRepairs();
     }
 
@@ -55,6 +58,9 @@ public class DataInitializer {
     }
     private void loadUsers () {
         appUserRepository.save(new AppUser("admin@admin","admin","haslo"));
+    }
+    private void loadCars () {
+        carRepository.save(new Car(1l,"Petrol","Subaru","Forester",1999,"349823743",2.5,5,"G0JAREK"));
     }
 
 }

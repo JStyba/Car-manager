@@ -1,11 +1,14 @@
 package com.carmanager.carmanager.service;
 
+import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Car;
 import com.carmanager.carmanager.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CarService implements ICarService {
 
     @Autowired
@@ -17,8 +20,8 @@ public class CarService implements ICarService {
     }
 
     @Override
-    public void removeCar(Car car) {
-        carRepository.delete(car);
+    public void removeCar(Long id) throws ElementNotFound {
+        carRepository.deleteById(id);
     }
 
     @Override

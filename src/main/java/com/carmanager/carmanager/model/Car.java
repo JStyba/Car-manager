@@ -1,6 +1,7 @@
 package com.carmanager.carmanager.model;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +12,7 @@ import java.util.Set;
 @Data
 @Entity
 @NoArgsConstructor
+@AllArgsConstructor
 public class Car {
 
 
@@ -44,4 +46,17 @@ public class Car {
     private Set<Repairs> repairsSet;
 
 
+    public Car(long id, String fuelType, String make, String model, int dateProduced, String vin, double engineCapacity, int numberOfSeats, String registrationNumber) {
+        this.id = id;
+        this.fuelType = fuelType;
+        this.make = make;
+        this.model = model;
+        this.dateProduced = dateProduced;
+        this.vin = vin;
+        this.engineCapacity = engineCapacity;
+        this.numberOfSeats = numberOfSeats;
+        this.registrationNumber = registrationNumber;
+
+
+    }
 }
