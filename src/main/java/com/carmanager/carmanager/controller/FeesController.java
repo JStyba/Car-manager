@@ -26,7 +26,7 @@ public class FeesController {
     private FeesRepository feesRepository;
 
     @RequestMapping(path = "/listfees", method = RequestMethod.GET)
-    public List<Fees> listFees() {
+    public List<Fees> listRepairs() {
         List<Fees> feesList = feesService.getAllFees().stream()
                 .map(fees -> new Fees(fees.getId(),
                         fees.getName()
@@ -34,11 +34,12 @@ public class FeesController {
                         ,fees.getFeeCost()
                         ,fees.getFeeExpirationDate()
                         ,fees.getFeeDescription()))
-                        .collect(Collectors.toList());
+                .collect(Collectors.toList());
         return feesList;
     }
+
     @RequestMapping(path = "/get", method = RequestMethod.GET)
-    public ResponseEntity<Fees> getFee(@RequestParam(name = "id") Long id){
+    public ResponseEntity<Fees> getfee(@RequestParam(name = "id") Long id){
         Optional<Fees> fees = feesRepository.findById(id);
         if(fees.isPresent()){
             return RespFactory.result(fees.get());
@@ -46,22 +47,21 @@ public class FeesController {
         return RespFactory.badRequest();
     }
 
-    @RequestMapping(path = "/edit-fee/", method = RequestMethod.POST)
-    public ResponseEntity<Response> editFee(@RequestBody Fees fee) throws ElementNotFound {
+    @RequestMapping(path = "/edit-fee", method = RequestMethod.POST)
+    public ResponseEntity<Response> editFee (@RequestBody Fees fee) throws ElementNotFound {
 
         Optional<Fees> feeId = feesRepository.findById(fee.getId());
         if (!feeId.isPresent()) {
             throw new ElementNotFound();
         }
         feesRepository.saveAndFlush(fee);
-        return RespFactory.ok("fee edited");
+        return RespFactory.ok("Repair edited");
     }
-
     @RequestMapping(path = "/remove-fee/{feeId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> removeFee(@PathVariable ("feeId") Long id) {
+    public ResponseEntity<Response> removeFee(@PathVariable("feeId") Long id) {
         try {
             feesService.removeFee(id);
-        }catch (ElementNotFound e){
+        } catch (ElementNotFound e) {
             return RespFactory.badRequest();
         }
         return RespFactory.ok("fee deleted");
