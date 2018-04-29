@@ -8,6 +8,7 @@ import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.CarRepository;
 import com.carmanager.carmanager.service.CarService;
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +50,7 @@ public class CarController {
 
     @RequestMapping(path = "/remove-car/{carId}", method = RequestMethod.DELETE)
     public ResponseEntity<Response> removeCar(@PathVariable("carId") Long id) {
+        //TODO: verify if removed car is loggedinuser's car
         try {
             carService.removeCar(id);
         } catch (ElementNotFound e) {
