@@ -20,4 +20,8 @@ public abstract class RespFactory {
     public static <T> ResponseEntity<Response> result(PageResponse<T> response) {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    public static <T> ResponseEntity<T> result(T response) {
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }
