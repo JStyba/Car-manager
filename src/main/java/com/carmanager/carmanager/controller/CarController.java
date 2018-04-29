@@ -3,6 +3,7 @@ package com.carmanager.carmanager.controller;
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Car;
 import com.carmanager.carmanager.model.Expenses;
+import com.carmanager.carmanager.model.dto.AddCarDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.CarRepository;
@@ -26,21 +27,14 @@ public class CarController {
     @Autowired
     private CarRepository carRepository;
 
-
     @RequestMapping(path = "/list-cars", method = RequestMethod.GET)
     public List<Car> listExpenses() {
-        List<Car> carList = carService.getAllCars().stream()
-                .map(car -> new Car(
-                        car.getId()
-                        , car.getFuelType()
-                        , car.getMake()
-                        , car.getModel()
-                        , car.getDateProduced()
-                        , car.getVin()
-                        , car.getEngineCapacity()
-                        , car.getNumberOfSeats()
-                        , car.getRegistrationNumber()))
-                .collect(Collectors.toList());
+        List<Car> carList = carService.getAllCars();
+        return carList;
+    }
+    @RequestMapping(path = "/list-user-cars", method = RequestMethod.GET)
+    public List<Car> listUserCars(@RequestParam(name="userId") Long id) {
+        List<Car> carList = carService.getAllCars(id);
         return carList;
     }
 
@@ -62,9 +56,15 @@ public class CarController {
         }
         return RespFactory.ok("expense deleted");
     }
+
     @RequestMapping(path = "/add-car", method = RequestMethod.POST)
     public ResponseEntity<Response> addCar(@RequestBody Car car) {
+        carService.addNewCar(car);
+        return RespFactory.created();
+    }
 
+    @RequestMapping(path = "/add-user-car", method = RequestMethod.POST)
+    public ResponseEntity<Response> addCar(@RequestBody AddCarDto car) {
         carService.addNewCar(car);
         return RespFactory.created();
     }

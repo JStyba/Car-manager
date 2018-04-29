@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -22,15 +23,14 @@ public class AppUser {
 
     private String login;
     private String email;
-    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Car> car;
 
-    public AppUser(String email, String login, String password ) {
+    public AppUser(String email, String login, String password) {
         this.login = login;
         this.password = password;
         this.email = email;
     }
-
-
-
 }
