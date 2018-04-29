@@ -41,7 +41,14 @@ public class ExpensesController {
         return expensesList;
     }
 
-
+    @RequestMapping(path = "/get", method = RequestMethod.GET)
+    public ResponseEntity<Expenses> getExpense(@RequestParam(name = "id") Long id){
+        Optional<Expenses> expenses = expensesRepository.findById(id);
+        if(expenses.isPresent()){
+            return RespFactory.result(expenses.get());
+        }
+        return RespFactory.badRequest();
+    }
 
     @RequestMapping(path = "/edit-expense/", method = RequestMethod.POST)
     public ResponseEntity<Response> editExpense(@RequestBody Expenses expense) throws ElementNotFound {
