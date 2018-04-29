@@ -50,12 +50,12 @@ public class ExpensesController {
         return RespFactory.badRequest();
     }
 
-    @RequestMapping(path = "/edit-expense/", method = RequestMethod.POST)
+    @RequestMapping(path = "/edit-expense", method = RequestMethod.POST)
     public ResponseEntity<Response> editExpense(@RequestBody Expenses expense) throws ElementNotFound {
 
-        expense.setName(expense.getName());
-        expense.setExpenseCost(expense.getExpenseCost());
-        expense.setExpenseDescription(expense.getExpenseDescription());
+//        expense.setName(expense.getName());
+//        expense.setExpenseCost(expense.getExpenseCost());
+//        expense.setExpenseDescription(expense.getExpenseDescription());
 
         Optional<Expenses> expenseId = expensesRepository.findById(expense.getId());
         if (!expenseId.isPresent()) {
