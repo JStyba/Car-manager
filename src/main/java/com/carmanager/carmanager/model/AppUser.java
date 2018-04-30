@@ -1,5 +1,6 @@
 package com.carmanager.carmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -25,6 +26,7 @@ public class AppUser {
     private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Car> car;
 
