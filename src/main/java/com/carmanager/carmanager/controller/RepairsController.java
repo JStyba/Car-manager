@@ -2,6 +2,7 @@ package com.carmanager.carmanager.controller;
 
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Repairs;
+import com.carmanager.carmanager.model.dto.AddRepairDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.RepairsRepository;
@@ -67,10 +68,18 @@ public class RepairsController {
         return RespFactory.ok("repair deleted");
     }
 
-    @RequestMapping(path = "/add-repair", method = RequestMethod.POST)
-    public ResponseEntity<Response> addRepair(@RequestBody Repairs repairs) {
+//    @RequestMapping(path = "/add-repair", method = RequestMethod.POST)
+//    public ResponseEntity<Response> addRepair(@RequestBody Repairs repairs) {
+//
+//        repairService.addNewRepair(repairs);
+//        return RespFactory.created();
+//    }
 
-        repairService.addNewRepair(repairs);
+    @RequestMapping(path = "/add-car-repair", method = RequestMethod.POST)
+    public ResponseEntity<Response> addRepair(@RequestParam Long carId, Long carOwnerId, @RequestBody AddRepairDto repair) {
+        repair.setCarId(carId);
+        repair.setCarOwnerId(carOwnerId);
+        repairService.addNewRepair(repair);
         return RespFactory.created();
     }
 }

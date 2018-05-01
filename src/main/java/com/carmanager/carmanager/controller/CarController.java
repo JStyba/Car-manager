@@ -2,11 +2,13 @@ package com.carmanager.carmanager.controller;
 
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Car;
+import com.carmanager.carmanager.model.Expenses;
 import com.carmanager.carmanager.model.dto.AddCarDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.CarRepository;
 import com.carmanager.carmanager.service.CarService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +29,7 @@ public class CarController {
     private CarRepository carRepository;
 
     @RequestMapping(path = "/list-cars", method = RequestMethod.GET)
+// TODO: sprawdzić tą klasę pod kątem błędów (expoenses zamiast car np. listowanie)
     public List<Car> listExpenses() {
         List<Car> carList = carService.getAllCars();
         return carList;

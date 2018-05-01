@@ -32,7 +32,7 @@ public class CarService implements ICarService {
     public void addNewCar(AddCarDto car) {
         Optional<AppUser> appUser = appUserRepository.findById(car.getOwnerId());
         if (appUser.isPresent()) {
-            AppUser user = appUser.get();
+            AppUser user = appUser.get();//metoda z optional
 
             Car newCar = new Car(car.getFuelType(),
                     car.getMake(),

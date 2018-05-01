@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CarRepository extends JpaRepository<Car, Long> {
-    List<Car> findAllByAppUser(AppUser user);
+    List<Car> findAllByAppUser(AppUser appUser);
 }

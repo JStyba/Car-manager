@@ -3,6 +3,8 @@ package com.carmanager.carmanager.controller;
 
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Fees;
+import com.carmanager.carmanager.model.dto.AddExpenseDto;
+import com.carmanager.carmanager.model.dto.AddFeeDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.FeesRepository;
@@ -67,10 +69,19 @@ public class FeesController {
         return RespFactory.ok("fee deleted");
     }
 
-    @RequestMapping(path = "/add-fee", method = RequestMethod.POST)
-    public ResponseEntity<Response> addFee(@RequestBody Fees fees) {
+//    @RequestMapping(path = "/add-fee", method = RequestMethod.POST)
+//    public ResponseEntity<Response> addFee(@RequestBody Fees fees) {
+//
+//        feesService.addNewFee(fees);
+//        return RespFactory.created();
+//    }
 
-        feesService.addNewFee(fees);
+    @RequestMapping(path = "/add-car-fee", method = RequestMethod.POST)
+    public ResponseEntity<Response> addFee(@RequestParam Long carId, Long carOwnerId, @RequestBody AddFeeDto fee) {
+        fee.setCarId(carId);
+        fee.setCarOwnerId(carOwnerId);
+        feesService.addNewFee(fee);
         return RespFactory.created();
     }
+
 }

@@ -56,7 +56,7 @@ public class DataInitializer {
         carRepository.save(new Car(1l,"Petrol","Subaru","Forester",1999,"349823743",2.5,5,"G0JAREK"));
     }
     private void loadRepairs () {
-        repairsRepository.save(new Repairs(1L, "wymiana sprzegla", "NaprawTo", 100, LocalDate.now(), "opis" ));
+        repairsRepository.save(new Repairs(1L, "wymiana sprzegla", "NaprawTo", "100", LocalDate.now(), "opis" ));
     }
 
 }

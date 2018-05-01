@@ -36,4 +36,12 @@ public class Fees {
         this.feeExpirationDate = feeExpirationDate;
         this.feeDescription = feeDescription;
     }
+
+    public Fees(String name, LocalDate feeDate, String feeCost, LocalDate feeExpirationDate, String feeDescription) {
+        this.name = name;
+        this.feeDate = feeDate;
+        this.feeCost = feeCost;
+        this.feeExpirationDate = feeExpirationDate;
+        this.feeDescription = feeDescription;
+    }
 }

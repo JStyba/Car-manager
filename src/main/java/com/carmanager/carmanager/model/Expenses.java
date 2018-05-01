@@ -39,4 +39,11 @@ public class Expenses {
         this.expenseCost = expenseCost;
         this.expenseDescription = expenseDescription;
     }
+
+    public Expenses(String name, LocalDate expenseDate, String expenseCost, String expenseDescription) {
+        this.name = name;
+        this.expenseDate = expenseDate;
+        this.expenseCost = expenseCost;
+        this.expenseDescription = expenseDescription;
+    }
 }

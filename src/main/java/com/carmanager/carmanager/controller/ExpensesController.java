@@ -3,6 +3,7 @@ package com.carmanager.carmanager.controller;
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.exceptions.RegistrationException;
 import com.carmanager.carmanager.model.Expenses;
+import com.carmanager.carmanager.model.dto.AddExpenseDto;
 import com.carmanager.carmanager.model.dto.PageResponse;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
@@ -74,10 +75,18 @@ public class ExpensesController {
         return RespFactory.ok("expense deleted");
     }
 
-    @RequestMapping(path = "/add-expense", method = RequestMethod.POST)
-    public ResponseEntity<Response> addExpense(@RequestBody Expenses expenses) {
-
-        expenseService.addNewExpense(expenses);
+//    @RequestMapping(path = "/add-expense", method = RequestMethod.POST)
+//    public ResponseEntity<Response> addExpense(@RequestBody Expenses expenses) {
+//
+//        expenseService.addNewExpense(expenses);
+//        return RespFactory.created();
+//    }
+    @RequestMapping(path = "/add-car-expense", method = RequestMethod.POST)
+    public ResponseEntity<Response> addExpense(@RequestParam Long carId, Long carOwnerId, @RequestBody AddExpenseDto expense) {
+        expense.setCarId(carId);
+        expense.setCarOwnerId(carOwnerId);
+        expenseService.addNewExpense(expense);
         return RespFactory.created();
     }
+
 }
