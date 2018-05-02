@@ -7,6 +7,7 @@ import com.carmanager.carmanager.model.Car;
 import com.carmanager.carmanager.model.dto.AddCarDto;
 import com.carmanager.carmanager.repository.AppUserRepository;
 import com.carmanager.carmanager.repository.CarRepository;
+import com.fasterxml.jackson.annotation.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -67,6 +68,7 @@ public class CarService implements ICarService {
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
+
 
     @Override
     public List<Car> getAllCars(Long userId) {

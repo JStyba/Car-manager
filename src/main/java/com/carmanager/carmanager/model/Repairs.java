@@ -1,6 +1,7 @@
 package com.carmanager.carmanager.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -25,6 +26,7 @@ public class Repairs {
     private String repairDescription;
 
     @ManyToOne
+    @JsonBackReference
     private Car car;
 
     public Repairs(Long id, String name, String workshop, String repairCost, LocalDate repairDate, String repairDescription) {

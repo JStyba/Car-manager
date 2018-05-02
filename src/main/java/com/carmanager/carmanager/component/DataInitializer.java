@@ -29,7 +29,7 @@ public class DataInitializer {
         loadFees();
         loadExpenses();
         loadUsers();
-        loadCars();
+//        loadCars();
         loadRepairs();
     }
     private void loadData() {
