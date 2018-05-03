@@ -3,6 +3,8 @@ package com.carmanager.carmanager.controller;
 
 import com.carmanager.carmanager.exceptions.ElementNotFound;
 import com.carmanager.carmanager.model.Fees;
+import com.carmanager.carmanager.model.dto.AddExpenseDto;
+import com.carmanager.carmanager.model.dto.AddFeeDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
 import com.carmanager.carmanager.model.dto.Response;
 import com.carmanager.carmanager.repository.FeesRepository;
@@ -26,38 +28,37 @@ public class FeesController {
     private FeesRepository feesRepository;
 
     @RequestMapping(path = "/listfees", method = RequestMethod.GET)
-    public List<Fees> listFees() {
+    public List<Fees> listRepairs() {
         List<Fees> feesList = feesService.getAllFees().stream()
                 .map(fees -> new Fees(fees.getId(),
                         fees.getName()
-                        , fees.getFeeDate()
-                        , fees.getFeeCost()
-                        , fees.getFeeExpirationDate()
-                        , fees.getFeeDescription()))
+                        ,fees.getFeeDate()
+                        ,fees.getFeeCost()
+                        ,fees.getFeeExpirationDate()
+                        ,fees.getFeeDescription()))
                 .collect(Collectors.toList());
         return feesList;
     }
 
     @RequestMapping(path = "/get", method = RequestMethod.GET)
-    public ResponseEntity<Fees> getFee(@RequestParam(name = "id") Long id) {
+    public ResponseEntity<Fees> getfee(@RequestParam(name = "id") Long id){
         Optional<Fees> fees = feesRepository.findById(id);
-        if (fees.isPresent()) {
+        if(fees.isPresent()){
             return RespFactory.result(fees.get());
         }
         return RespFactory.badRequest();
     }
 
-    @RequestMapping(path = "/edit-fee/", method = RequestMethod.POST)
-    public ResponseEntity<Response> editFee(@RequestBody Fees fee) throws ElementNotFound {
+    @RequestMapping(path = "/edit-fee", method = RequestMethod.POST)
+    public ResponseEntity<Response> editFee (@RequestBody Fees fee) throws ElementNotFound {
 
         Optional<Fees> feeId = feesRepository.findById(fee.getId());
         if (!feeId.isPresent()) {
             throw new ElementNotFound();
         }
         feesRepository.saveAndFlush(fee);
-        return RespFactory.ok("fee edited");
+        return RespFactory.ok("Repair edited");
     }
-
     @RequestMapping(path = "/remove-fee/{feeId}", method = RequestMethod.DELETE)
     public ResponseEntity<Response> removeFee(@PathVariable("feeId") Long id) {
         try {
@@ -68,10 +69,19 @@ public class FeesController {
         return RespFactory.ok("fee deleted");
     }
 
-    @RequestMapping(path = "/add-fee", method = RequestMethod.POST)
-    public ResponseEntity<Response> addFee(@RequestBody Fees fees) {
+//    @RequestMapping(path = "/add-fee", method = RequestMethod.POST)
+//    public ResponseEntity<Response> addFee(@RequestBody Fees fees) {
+//
+//        feesService.addNewFee(fees);
+//        return RespFactory.created();
+//    }
 
-        feesService.addNewFee(fees);
+    @RequestMapping(path = "/add-car-fee", method = RequestMethod.POST)
+    public ResponseEntity<Response> addFee(@RequestParam Long carId, Long carOwnerId, @RequestBody AddFeeDto fee) {
+        fee.setCarId(carId);
+        fee.setCarOwnerId(carOwnerId);
+        feesService.addNewFee(fee);
         return RespFactory.created();
     }
+
 }

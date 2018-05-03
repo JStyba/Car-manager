@@ -47,9 +47,11 @@ public class Car {
     private Set<Expenses> expensesSet;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car")
+    @JsonManagedReference
     private Set<Fees> feesSet;
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "car")
+    @JsonManagedReference
     private Set<Repairs> repairsSet;
 
     public Car() {

@@ -1,13 +1,12 @@
 package com.carmanager.carmanager.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Set;
 
 @Data
 @Entity
@@ -18,6 +17,7 @@ public class Fees {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
+    @JsonBackReference
     private Car car;
 
     private String name;
@@ -32,6 +32,14 @@ public class Fees {
 
     public Fees(Long id, String name, LocalDate feeDate, String feeCost, LocalDate feeExpirationDate, String feeDescription) {
         this.id = id;
+        this.name = name;
+        this.feeDate = feeDate;
+        this.feeCost = feeCost;
+        this.feeExpirationDate = feeExpirationDate;
+        this.feeDescription = feeDescription;
+    }
+
+    public Fees(String name, LocalDate feeDate, String feeCost, LocalDate feeExpirationDate, String feeDescription) {
         this.name = name;
         this.feeDate = feeDate;
         this.feeCost = feeCost;

@@ -34,6 +34,7 @@ public class CarController {
     private AppUserRepository appUserRepository;
 
     @RequestMapping(path = "/list-cars", method = RequestMethod.GET)
+// TODO: sprawdzić tą klasę pod kątem błędów (expoenses zamiast car np. listowanie)
     public List<Car> listExpenses() {
         List<Car> carList = carService.getAllCars();
         return carList;
