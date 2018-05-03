@@ -30,17 +30,18 @@ public class FeesController {
         List<Fees> feesList = feesService.getAllFees().stream()
                 .map(fees -> new Fees(fees.getId(),
                         fees.getName()
-                        ,fees.getFeeDate()
-                        ,fees.getFeeCost()
-                        ,fees.getFeeExpirationDate()
-                        ,fees.getFeeDescription()))
-                        .collect(Collectors.toList());
+                        , fees.getFeeDate()
+                        , fees.getFeeCost()
+                        , fees.getFeeExpirationDate()
+                        , fees.getFeeDescription()))
+                .collect(Collectors.toList());
         return feesList;
     }
+
     @RequestMapping(path = "/get", method = RequestMethod.GET)
-    public ResponseEntity<Fees> getFee(@RequestParam(name = "id") Long id){
+    public ResponseEntity<Fees> getFee(@RequestParam(name = "id") Long id) {
         Optional<Fees> fees = feesRepository.findById(id);
-        if(fees.isPresent()){
+        if (fees.isPresent()) {
             return RespFactory.result(fees.get());
         }
         return RespFactory.badRequest();
@@ -58,10 +59,10 @@ public class FeesController {
     }
 
     @RequestMapping(path = "/remove-fee/{feeId}", method = RequestMethod.DELETE)
-    public ResponseEntity<Response> removeFee(@PathVariable ("feeId") Long id) {
+    public ResponseEntity<Response> removeFee(@PathVariable("feeId") Long id) {
         try {
             feesService.removeFee(id);
-        }catch (ElementNotFound e){
+        } catch (ElementNotFound e) {
             return RespFactory.badRequest();
         }
         return RespFactory.ok("fee deleted");
