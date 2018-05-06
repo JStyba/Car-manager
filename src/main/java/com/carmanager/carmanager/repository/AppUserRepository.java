@@ -17,4 +17,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     Page<AppUser> findAllBy(Pageable pageable);
 
     List <Car> getAllById (Long id);
+
+    Optional<AppUser> findByLoginAndPassword(String username, String password);
 }
