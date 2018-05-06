@@ -23,7 +23,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/authenticate", "user/register");
+        web.ignoring().antMatchers("/authenticate", "/user/register");
     }
 
     @Override
@@ -31,7 +31,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/authenticate").permitAll()
-                .antMatchers(HttpMethod.POST, "user/register").permitAll()
+                .antMatchers(HttpMethod.POST, "/user/register").permitAll()
                 .anyRequest().fullyAuthenticated().and()
                 .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)
                 .httpBasic().and()

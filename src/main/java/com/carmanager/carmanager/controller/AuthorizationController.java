@@ -2,6 +2,7 @@ package com.carmanager.carmanager.controller;
 
 import com.carmanager.carmanager.exceptions.UserDoesNotExistException;
 import com.carmanager.carmanager.model.AppUser;
+import com.carmanager.carmanager.model.Role;
 import com.carmanager.carmanager.model.dto.AuthenticationDto;
 import com.carmanager.carmanager.model.dto.LoginDto;
 import com.carmanager.carmanager.model.dto.RespFactory;
@@ -12,8 +13,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
+import java.security.Key;
 import java.util.Date;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static com.carmanager.carmanager.configuration.JWTFilter.AUTHORITIES_KEY;
 import static com.carmanager.carmanager.configuration.JWTFilter.SECRET;
@@ -32,11 +38,17 @@ public class AuthorizationController {
 
             AppUser user = appUserOptional.get();
 
+            SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
+
+            //We will sign our JWT with our ApiKey secret
+            byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET);
+            Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
+
             String token = Jwts.builder()
-                    .setSubject(user.getUsername())
+                    .setSubject(user.getLogin())
                     .setIssuedAt(new Date())
-                    .claim(AUTHORITIES_KEY, user.getAuthorities())
-                    .signWith(SignatureAlgorithm.HS256, SECRET)
+                    .claim(AUTHORITIES_KEY, translateRoles(user.getRoleSet())) // todo: do zmiany na getRoles?
+                    .signWith(signatureAlgorithm, signingKey)
                     .compact();
 
             return RespFactory.result(new AuthenticationDto(token, user));
@@ -44,5 +56,9 @@ public class AuthorizationController {
             e.printStackTrace();
         }
         return RespFactory.badRequest();
+    }
+
+    private Set<String> translateRoles(Set<Role> roles) {
+        return roles.stream().map(role -> role.getName()).collect(Collectors.toSet());
     }
 }
