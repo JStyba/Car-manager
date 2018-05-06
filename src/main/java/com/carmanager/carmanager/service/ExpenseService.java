@@ -42,22 +42,25 @@ public class ExpenseService implements IExpenseService {
     public void addNewExpense(AddExpenseDto expense) {
         Optional<AppUser> appUser = appUserRepository.findById(expense.getCarOwnerId());
 //        Car loggedUserCar = carRepository.findAllByAppUser(expense.getCarOwnerId());
-        Optional<Car> car = carRepository.findById(expense.getCarOwnerId());
-        if (car.isPresent() && appUser.get().equals(car.get().getAppUser())) {
+        Optional<Car> car = carRepository.findById(expense.getCarId());
+        if (car.isPresent()) {
             Car newCar = car.get();//metoda z optional
+            if (appUser.isPresent()) {
+                AppUser user = appUser.get();
 
-            Expenses newExpense = new Expenses(expense.getName()
-                    ,expense.getExpenseDate()
-                    ,expense.getExpenseCost()
-                    ,expense.getExpenseDescription()
+                if (user.getId().equals(newCar.getAppUser().getId())) {
+                    Expenses newExpense = new Expenses(expense.getName()
+                            , expense.getExpenseDate()
+                            , expense.getExpenseCost()
+                            , expense.getExpenseDescription()
                     );
-            newExpense.setCar(newCar);
-
-
-            newCar.getExpensesSet().add(newExpense);
-            expensesRepository.save(newExpense);
-            carRepository.save(newCar);
-            return;
+                    newExpense.setCar(newCar);
+                    newCar.getExpensesSet().add(newExpense);
+                    expensesRepository.save(newExpense);
+                    carRepository.save(newCar);
+                    return;
+                }
+            }
         }
         throw new CarNotFoundException();
     }
