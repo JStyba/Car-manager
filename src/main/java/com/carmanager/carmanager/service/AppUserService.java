@@ -1,9 +1,8 @@
 package com.carmanager.carmanager.service;
 
-import com.carmanager.carmanager.exceptions.RegistrationException;
-import com.carmanager.carmanager.exceptions.UserEmailAlreadyExistsException;
-import com.carmanager.carmanager.exceptions.UserLoginAlreadyExistsException;
+import com.carmanager.carmanager.exceptions.*;
 import com.carmanager.carmanager.model.AppUser;
+import com.carmanager.carmanager.model.dto.LoginDto;
 import com.carmanager.carmanager.model.dto.PageResponse;
 import com.carmanager.carmanager.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +54,17 @@ public class AppUserService implements IAppUserService {
     public Optional<AppUser> getUserWithId(long ownerId) {
         return appUserRepository.findById(ownerId);
     }
+
+    @Override
+    public Optional<AppUser> getUserWithLoginAndPassword(LoginDto dto) throws UserNotFoundException {
+       Optional<AppUser> foundUser = appUserRepository.findByLoginAndPassword(dto.getLogin(), bCryptPasswordEncoder.encode(dto.getPassword());
+
+       if(!foundUser.isPresent()){
+           throw new UserNotFoundException();
+       }
+        return Optional.empty();
+    }
+
     @Override
     public PageResponse<AppUser> getUsers(int page) {
         Page<AppUser> users = appUserRepository.findAllBy(PageRequest.of(page, DEFAULT_PAGE_SIZE));

@@ -2,6 +2,7 @@ package com.carmanager.carmanager.service;
 
 import com.carmanager.carmanager.exceptions.RegistrationException;
 import com.carmanager.carmanager.model.AppUser;
+import com.carmanager.carmanager.model.dto.LoginDto;
 import com.carmanager.carmanager.model.dto.PageResponse;
 
 import java.util.Optional;
@@ -15,4 +16,5 @@ public interface IAppUserService {
 
         Optional<AppUser> getUserWithId(long ownerId);
 
+        Optional<AppUser> getUserWithLoginAndPassword(LoginDto dto);
 }
