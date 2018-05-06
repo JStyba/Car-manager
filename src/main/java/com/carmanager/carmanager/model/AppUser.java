@@ -30,6 +30,17 @@ public class AppUser implements UserDetails {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.PERSIST)
     private List<Car> car;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<Role> roleSet;
+
+    public AppUser(String login, String password, Role role) {
+        this.login = login;
+        this.password = password;
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        this.roleSet = roles;
+    }
 
     public AppUser(String email, String login, String password) {
         this.login = login;
