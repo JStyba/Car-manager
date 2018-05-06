@@ -56,23 +56,25 @@ public class RepairService implements IRepairService {
     public void addNewRepair(AddRepairDto repair) {
         Optional<AppUser> appUser = appUserRepository.findById(repair.getCarOwnerId());
 //        Car loggedUserCar = carRepository.findAllByAppUser(fee.getCarOwnerId());
-        Optional<Car> car = carRepository.findById(repair.getCarOwnerId());
-        if (car.isPresent() && appUser.get().equals(car.get().getAppUser())) {
+        Optional<Car> car = carRepository.findById(repair.getCarId());
+        if (car.isPresent()) {
             Car newCar = car.get();//metoda z optional
-
-            Repairs newRepair = new Repairs( repair.getName()
-                    ,repair.getWorkshop()
-                    , repair.getRepairCost()
-                    , repair.getRepairDate()
-                    , repair.getRepairDescription()
-            );
-            newRepair.setCar(newCar);
-
-
-            newCar.getRepairsSet().add(newRepair);
-            repairsRepository.save(newRepair);
-            carRepository.save(newCar);
-            return;
+            if (appUser.isPresent()) {
+                AppUser user = appUser.get();
+                if (user.getId().equals(newCar.getAppUser().getId())) {
+                    Repairs newRepair = new Repairs(repair.getName()
+                            , repair.getWorkshop()
+                            , repair.getRepairCost()
+                            , repair.getRepairDate()
+                            , repair.getRepairDescription()
+                    );
+                    newRepair.setCar(newCar);
+                    newCar.getRepairsSet().add(newRepair);
+                    repairsRepository.save(newRepair);
+                    carRepository.save(newCar);
+                    return;
+                }
+            }
         }
         throw new CarNotFoundException();
     }

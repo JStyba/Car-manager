@@ -58,23 +58,25 @@ public class FeesService implements IFeesService {
     public void addNewFee(AddFeeDto fee) {
         Optional<AppUser> appUser = appUserRepository.findById(fee.getCarOwnerId());
 //        Car loggedUserCar = carRepository.findAllByAppUser(fee.getCarOwnerId());
-        Optional<Car> car = carRepository.findById(fee.getCarOwnerId());
-        if (car.isPresent() && appUser.get().equals(car.get().getAppUser())) {
+        Optional<Car> car = carRepository.findById(fee.getCarId());
+        if (car.isPresent()) {
             Car newCar = car.get();//metoda z optional
-
-            Fees newFee = new Fees( fee.getName()
-                    ,fee.getFeeDate()
-                    ,fee.getFeeCost()
-                    ,fee.getFeeExpirationDate()
-                    ,fee.getFeeDescription()
+            if (appUser.isPresent()) {
+                AppUser user = appUser.get();
+                if (user.getId().equals(newCar.getAppUser().getId())) {
+                    Fees newFee = new Fees(fee.getName()
+                            , fee.getFeeDate()
+                            , fee.getFeeCost()
+                            ,fee.getFeeExpirationDate()
+                            , fee.getFeeDescription()
             );
-            newFee.setCar(newCar);
-
-
-            newCar.getFeesSet().add(newFee);
-            feesRepository.save(newFee);
-            carRepository.save(newCar);
-            return;
+                    newFee.setCar(newCar);
+                    newCar.getFeesSet().add(newFee);
+                    feesRepository.save(newFee);
+                    carRepository.save(newCar);
+                    return;
+                }
+            }
         }
         throw new CarNotFoundException();
     }
