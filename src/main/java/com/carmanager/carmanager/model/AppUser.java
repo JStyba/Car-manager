@@ -40,7 +40,7 @@ public class AppUser implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> grantedAuthorityList = new ArrayList<>();
-        for(Role role :roleSet){
+        for(Role role : roleSet){
             grantedAuthorityList.add(new SimpleGrantedAuthority(role.getName()));
         }
         return grantedAuthorityList;
