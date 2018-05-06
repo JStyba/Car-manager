@@ -42,11 +42,11 @@ public class AppUser implements UserDetails {
         this.roleSet = roles;
     }
 
-    public AppUser(String email, String login, String password) {
-        this.login = login;
-        this.password = password;
-        this.email = email;
-    }
+//    public AppUser(String email, String login, String password) {
+//        this.login = login;
+//        this.password = password;
+//        this.email = email;
+//    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

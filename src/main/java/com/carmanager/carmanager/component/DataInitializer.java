@@ -28,7 +28,7 @@ public class DataInitializer {
 
 //        loadFees();
 //        loadExpenses();
-        loadUsers();
+//        loadUsers();
         loadData();
 //        loadCars();
 //        loadRepairs();
@@ -38,6 +38,7 @@ public class DataInitializer {
         adminRole = roleRepository.saveAndFlush(adminRole);
         roleRepository.save(new Role("USER"));
         roleRepository.save(new Role("GUEST"));
+        appUserRepository.save(new AppUser("admin", "admin", adminRole));
     }
     private void loadExpenses() {
         expensesRepository.save(new Expenses(1l,"Vulcanization", LocalDate.now(),"200","usługa"));
@@ -49,9 +50,7 @@ public class DataInitializer {
             feesRepository.save(new Fees(2l,"Insurance OC", LocalDate.now(), "200", LocalDate.now().plusYears(1), "next fee"));
     }
 
-    private void loadUsers () {
-        appUserRepository.save(new AppUser("admin","admin",new Role("ADMIN")));
-    }
+
 
     private void loadCars () {
         carRepository.save(new Car(1l,"Petrol","Subaru","Forester",1999,"349823743",2.5,5,"G0JAREK"));
